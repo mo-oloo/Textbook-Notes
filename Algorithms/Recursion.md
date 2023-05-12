@@ -100,3 +100,51 @@ Proof of Mergesort:
 2. Partition the array into three subarrays containing the elements smaller than the pivot, the pivot element itself, and the elements larger than the pivot.
 3. Recursively quicksort the first and last subarrays (The array with smaller elements and the array with bigger elements).
 ![[Pasted image 20230506220456.png]]
+- Pseudocode:
+```
+QuickSort(A[1..n]):
+	if(n>1)
+		Choose a pivot element A[p]
+		r <- Partition(A,p)
+		QuickSort(A[1..r-1])
+		QuickSort(A[r+1..n])
+```
+```
+Partition(A[1..n], p):
+	swap A[p] <-> A[n]
+	l <- 0
+	for i <- 1 to n-1
+		if A[i]<A[n]
+			l <- l+1
+			swap A[l] <-> A[i]
+	swap A[n] <-> A[l+1]
+	return l+1
+```
+- In `Partition()`, the input $p$ is the index of the pivot in the unsorted array. The array is partitioned and returns the new index of the pivot element.
+	- The variable $l$ counts the number in the array that are less than the pivot element.
+
+- Proving Quicksort: First prove Partition is correct, then prove that QuickSort is correct assuming Partition is correct. The proof is not given in the textbook and is left as an exercise.
+	- To prove Partition, we must prove the following loop invariant: At the end of each iteration of the main loop, everything in the subarray $A[1..l]$ is less than $A[n]$, and nothing in the subarray $A[l+1..i]$ is less than $A[n]$.
+
+- `Partition()` runs in $O(n)$ time.
+- `QuickSort()` runs on $T(n)=T(r-1)+T(n-r)+O(n)$.
+	- It depends on $r$, the *rank* of the chosen pivot.
+- If we can always choose the median element in the array, then $r=\lceil{n/2}\rceil$, and the two subproblems would be as close to the same size as possible. The recurrence relation would become $$T(n)=T(\lceil{n/2}\rceil-1)+T(\lfloor{n/2}\rfloor) + O(n) \leq 2T(n/2)+O(n)$$and we'll have $T(n) = O(n\log{n})$ using the recursion tree method.
+- We can locate the median element in linear time, but the algorithm is complex and sometimes impractical.
+- Most of the time we'll just choose the first or last element of the array as the pivot.
+	- Then, $r$ can take any value $1\leq r\leq n$ so we will have $$T(n)=\max_{1\leq r\leq n}\big(T(r-1)+T(n-r)+O(n)\big).$$
+- The worst case is when the two subproblems are completely unbalanced and either $r=1$ or $r=n$, and the recurrence becomes $T(n)\leq T(n-1)+O(n)$. The solution is thus $T(n)=O(n^2).$
+- We can take the median of three elements, usually first, middle, and last as the pivot. In practice this is more efficient, we will still have $r=2$ or $r=n-1$ in the worst case. The recurrence relation is then $T(n)\leq T(1)+T(n-2)+O(n)$ which still has the solution $T(n)=O(n^2)$.
+- The pivot element should usually fall somewhere in the middle of the array with rank between $n/10$ and $9n/10$. Thus, the average-case running time should be $O(n\log{n})$.
+	- Considered as best case running time, but it is not because it makes assumptions about the data being sorted.
+
+# 1.6 The Pattern
+- Mergesort and Quicksort follows the **divide and conquer** pattern:
+1. **Divide** the problem into several independent smaller instances of the same problem.
+2. **Delegate** each smaller instance to the "Recursion Fairy" (Don't worry about the smaller instances and just trust that they are solved correctly).
+3. **Combine** the solutions for the smaller instances into the final solution from the initial instance.
+- If the size of the instance falls below some constant threshold, then we can just solve the problem directly in constant time with brute force.
+- Proof of a Divide and Conquer solution will almost always use induction.
+- Analyzing the running time will require setting and solving a recurrence relation, which can be solved using a recursion tree most of the time.
+
+# 1.7 Recursion Trees
