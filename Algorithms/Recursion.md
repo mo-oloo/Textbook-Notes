@@ -148,3 +148,7 @@ Partition(A[1..n], p):
 - Analyzing the running time will require setting and solving a recurrence relation, which can be solved using a recursion tree most of the time.
 
 # 1.7 Recursion Trees
+- Used to visualize divide and conquer recurrences.
+- A rooted tree with a node for every recursive subproblem.
+	- The value of each node is the running time of that subproblem, excluding recursive calls
+- Overall running time of the algorithm is the sum of all the values in the tree.
