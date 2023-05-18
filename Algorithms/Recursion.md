@@ -148,7 +148,35 @@ Partition(A[1..n], p):
 - Analyzing the running time will require setting and solving a recurrence relation, which can be solved using a recursion tree most of the time.
 
 # 1.7 Recursion Trees
-- Used to visualize divide and conquer recurrences.
+- Used to visualize and solve divide-and-conquer recurrences.
 - A rooted tree with a node for every recursive subproblem.
 	- The value of each node is the running time of that subproblem, excluding recursive calls
 - Overall running time of the algorithm is the sum of all the values in the tree.
+
+- Let's say we have a divide-and-conquer algorithm with the following assumptions:
+	- Time spent on non-recursive work is $O(f(n))$ time.
+	- It makes $r$ recursive calls, each on a problem of size $n/c$.
+- The running time of the algorithm would then have the recurrence relation $$
+T(n)=r\ T(n/c) + f(n)
+$$
+
+- The recursion tree for $T(n)$ then has a root with value $f(n)$ and $r$ children.
+	- These children have their own recursion tree for $T(n/c)$, and each of them has $r$ children with recursion trees for $T(n/c^{2})$.
+- We can generalize the running time of each recursive call of the recursion tree to $T(n/c^{d})$, where $d$ is the depth (think of it as how far we are from the initial recursive call). 
+- We can draw this out like so: ![[Pasted image 20230515134410.png]]
+- The leaves are the base cases of the recurrence.
+- We can assume $T(n)=1$ for all $n\leq n_{0}$, where $n_{0}$ is an arbitrary positive constant (our base case).
+
+- $T(n)$ is the sum of all the values in the recursion tree, so we can find it by getting the sum of the entire tree level by level. Lets say $i$ is the $i$th level of the tree, where $0\leq i\leq L$. Each level of the tree has $r^{i}$ nodes and they each have the value $f(n/c^{i})$. So we can calculate the running time to be: $$
+T(n) = \sum_{i=0}^L (r^{i})\cdot f(n/c^{i})
+$$
+- Our base case $n_{0}=1$ implies $L=\log_{c}n$ because $n/c^{L}=n_{0}=1$. Then, the number of leaves in the tree is exactly $r^{L}=r^{\log_{c}n}=n^{\log_{c}r}$. Thus, the last term in the summation is $n^{\log_{c}r}\cdot f(1)=O(n^{\log_{c}r})$, because $f(1)=O(1)$.
+
+- There are three common cases where the summation is easy to evaluate:
+	- If the series *decays exponentially* (**Decreasing**), every term is a constant factor smaller than the previous term. Then, $T(n)=O(f(n))$. The sum is dominated by the value at the root.
+	- If all the terms in the series are **equal**, we immediately have $T(n)=O(f(n)\cdot L)=O(f(n)\log n)$.
+	- If the series *grows exponentially* (**Increasing**), every term is a constant factor that is larger than the previous one. So, $T(n)=O(n^{\log_{c}r})$. The sum is dominated by the number of leaves at the bottom of the tree.
+
+- The levels of the recursion tree for the mergesort recurrence $T(n)=2T(n/2)+O(n)$ are equal. This immediately implies $T(n)=O(n\log n)$ 
+  ![[Pasted image 20230515142350.png]]
+- 

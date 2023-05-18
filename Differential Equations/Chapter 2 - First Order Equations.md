@@ -31,3 +31,27 @@ $$ where $C$ is an arbitrary real number. By plugging $y(t)$ into $y'$ we obtain
 - This is the general solution.
 
 ## Initial Value Problems
+- We want to determine the value of constants and specify the solution completely. This is called the **particular solution**.
+
+- Given that $y(t)=-\frac{1}{t-C}$ is a general solution of $y'=y^2$, find the particular solution satisfying $y(0)=1$.
+- Because $$\begin{aligned}
+1=y(0)&=\frac{-1}{0-C}=\frac{1}{C} \\ \\
+C&=1
+\end{aligned}
+$$Substituting $C=1$ into $y(t)$, we obtain $$
+y(t)=-\frac{1}{t-1}
+$$ a particular solution of $y'=y^{2}$, satisfying $y(0)=1$.
+
+- A first-order differential equation with the initial condition $$y'=f(t,y),\quad y(t_{0})=y_{0}$$is called an **initial value problem**. A solution of the IVP is a differentiable function $y(t)$ such that
+	1. $y'(t)=f(t,y(t))$ for all $t$ in an interval containing $t_{0}$ where $y(t)$ is defined.
+	2. $y(t_{0}) = y_{0}$
+
+## Interval of Existence
+- The **interval of existence** of a solution is the largest interval where the solution can be defined.
+
+- The interval of existence of $y'=y^{2}$ with initial value $y(0)=1$ with the solution $y(t)=\frac{-1}{t-1}$ is undefined at $t=1$.
+	- Thus, the function is not fully defined over the entire real number line. Therefore, the largest interval where the solution curve $y(t)$ is defined is the interval $(-\infty,1)$.
+
+# 2.2 Solutions to Separable Equations
+
+# 2.3 Models of Motion
