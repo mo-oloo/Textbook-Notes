@@ -55,3 +55,18 @@ $$ a particular solution of $y'=y^{2}$, satisfying $y(0)=1$.
 # 2.2 Solutions to Separable Equations
 
 # 2.3 Models of Motion
+
+# 2.4 Linear Equations
+## First order linear equations
+## Solution of the homoegenous equation
+## Solution of the inhomogenous equation
+## General method of solving linear equations
+# 2.5 Mixing Problems
+
+# 2.6 Exact Differential Equations
+
+# 2.7 Existence and Uniqueness of Solutions
+
+# 2.8 Dependence of Solutions on Initial Conditions
+
+# 2.9 Autonomous Equations and Stability

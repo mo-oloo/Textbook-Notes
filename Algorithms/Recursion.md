@@ -179,4 +179,55 @@ $$
 
 - The levels of the recursion tree for the mergesort recurrence $T(n)=2T(n/2)+O(n)$ are equal. This immediately implies $T(n)=O(n\log n)$ 
   ![[Pasted image 20230515142350.png]]
-- 
+- The Recursion tree can also be used for algorithms where the recursive subproblems have different sizes.
+- We can ignore floors and ceilings in running time recurrences by using domain transformation.
+
+# 1.8 Linear-Time Selection
+
+# 1.9 Fast Multiplication
+- Multiplying two numbers $x$ and $y$: $$
+(10^{m}a+b)(10^{m}c+d)=10^{2m}ac+10^{m}(bc+ad)+bd
+$$where $x=10^{m}a+b$ and $y=10^{m}c+d$.
+- We reduce our main problem to four sub-problems, where we find the sub-products $ac,\ bc,\ ad,\text{ and }bd$.
+	- Solving these four subproducts would give us a running time of $O(n^{\log_{2}4})=O(n^{2})$
+	- According to Karatsuba, we can find the middle coefficient $(bc+ad)$ using only one more recursive multiplication rather than two using the algebraic identity $$
+ac+bd-(a-b)(c-d)=bc+ad
+$$which allows us to reduce the running time to $O(n^{\log_{2}3})\approx O(n^{1.58496})$.
+- Pseudocode:
+```
+	FastMultiply(x,y,n):
+		if n=1
+			return x*y
+		else
+			m = ceil(n/2)
+			a = floor(x/10^m); b = x mod 10^m
+			c = floor(y/10^m); d = y mod 10^m
+			e = FastMultiply(a,c,m)
+			f = FastMultiply(b,d,m)
+			g = FastMultiply(a-b, c-d, m)
+			return 10^(2m)e+10^m(e+f-g)+f
+
+```
+![[Pasted image 20230519161446.png]]
+
+# 1.10 Exponentiation
+- Naively, we can calculate $a^{n}$ by using a for-loop that multiplies $a$ by itself $n$ times.
+- We can use a divide-and-conquer method instead, using a simple recursive formula $$
+a^{n} = \begin{cases}
+1 & \text{if } n=0 \\
+(a^{n/2})^{2} & \text{if } n>0 \text{ and } n \text{ is even} \\
+(a^{\lfloor{n/2}\rfloor})^{2}\ \cdot\ a & \text{otherwise}
+\end{cases}
+$$
+- Pseudocode:
+```
+PingalaPower(a, n):
+	if n = 1
+		return a
+	else
+		x = PingalaPower(a, floor(n/2))
+		if n is even
+			return x*x
+		else
+			return x*x*a
+```
