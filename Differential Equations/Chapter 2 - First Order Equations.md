@@ -28,7 +28,7 @@ $$where $-\frac{t}{4y}=f(t,y)$.
 - Show that $y(t)=Ce^{-t^{2}}$ is a solution of the first-order equation $$
 y'=-2ty
 $$ where $C$ is an arbitrary real number. By plugging $y(t)$ into $y'$ we obtain $y'(t)=-2tCe^{-t^{2}}$. By plugging in $y(t)$ into $-2ty$ we obtain $-2ty(t)=-2tCe^{-t^{2}}.$ Both sides are equal so the equation is satisfied. Both $y(t)$ and $y'(t)$ are defined on the interval $(-\infty,\infty)$. Therefore, for each real number $C$, $y(t)=Ce^{-t^{2}}$ is a solution on the interval $(-\infty,\infty)$.
-- This is the general solution.
+- This is the **general solution**.
 
 ## Initial Value Problems
 - We want to determine the value of constants and specify the solution completely. This is called the **particular solution**.
