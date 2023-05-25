@@ -36,7 +36,39 @@ PlaceQueens(Q[1..n], r):
 - The edges correspond to recursive calls.
 - The leaves are the partial solutions that cannot be extended because there are no more valid placements of queens with the current board (either because every possible placement is attacked by previous queens or all the rows are already filled).
 # 2.2 Game Trees
+- For every two-player game without randomness or hidden information that ends after a finite number of moves, there exists a backtracking algorithm that can play the game perfectly.
+	- If two players play perfectly, and it is possible to win against them, then an algorithm will tell you how to win.
+- A **state** of the game is the locations of all the pieces and the identity of the current player.
+- The states can all be connected together into a **game tree**.
+	- The edges from state $x$ to state $y$ exists if and only if the current player in state $x$ can legally move to state $y$.
+![[Pasted image 20230524124247.png]]
+		(you should read the textbook for the example in this tree)
 
+- To find a solution to the game and navigate through the game tree, we recursively define a game state to be **good** or **bad**.
+	- a game state is **good** if the current player has already won, or if the current player can move to a bad state for the opposing player.
+		- a non-leaf node is **good** if it has at least one bad child (the current player can choose to move to a bad game state for the opposing player).
+	- a game state is **bad** if the current player has already lost, or if every single available move leads to a good state for the opposing player.
+		- a non-leaf node is **bad** if every child is good (the current player can only move to a good game state for the opposing player).
+- By induction, any player that finds the game in a good state on their turn can win the game even if their opponent plays perfectly.
+	- When starting in a bad state, a player can only win if their opponent makes a mistake.
+	- This is ONLY if the game has a finite number of moves.
+- Pseudocode:
+```
+PlayAnyGame(X, player):
+	if player has already won in state X:
+		return Good
+	if player has already lost in state X:
+		return Bad
+	for all legal moves X to Y:
+		if PlayAnyGame(Y, ~player) = Bad:
+			return Good     // X to Y is a good move
+	return Bad    // There are no good moves
+```
+- `X` is the current game state, and `Y` is the next potential state.
+- `player` is the current player.
+- The backtracking algorithm is just a Depth-First Search of the game tree.
+- The game tree is the recursion tree of the algorithm.
+- In practice, game trees are extremely huge to the point that traversing it entirely is not feasible, so game programs will use other algorithms to prune the game tree to ignore states that are obviously good or bad, or better or worse than other game states by cutting off the tree at a certain depth.
 # 2.3 Subset Sum
 
 # 2.4 The General Pattern
